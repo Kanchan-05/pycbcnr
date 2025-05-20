@@ -6,14 +6,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name='pynr',
+    name='pycbcnr',
     version=VERSION,
     description='A waveform plugin for PyCBC and loading NR waveforms from the catalogues',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='Kanchan Soni',
-    author_email='kanchsoni03@gmail.com',
-    url='https://github.com/Kanchan-05/pynr',
+    author_email='ksoni01@syr.edu',
+    url='https://github.com/Kanchan-05/nrpycbc',
     keywords=['gravitational waves', 'pycbc', 'sxs', 'rit', 'maya', 'nr data'],
     packages=find_packages(),
     python_requires='>=3.8',
