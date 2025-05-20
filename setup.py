@@ -14,7 +14,7 @@ setup(
     author='Kanchan Soni',
     author_email='ksoni01@syr.edu',
     url='https://github.com/Kanchan-05/nrpycbc',
-    keywords=['gravitational waves', 'pycbc', 'sxs', 'rit', 'maya', 'nr data'],
+    keywords=['gravitational waves', 'pycbc', 'sxs', 'nr data'],
     packages=find_packages(),
     python_requires='>=3.8',
 
