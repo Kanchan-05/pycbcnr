@@ -1,0 +1,9 @@
+numpy
+glob2
+jsons
+lalsuite
+h5py
+scipy 
+sxs
+romspline
+requests_cache
