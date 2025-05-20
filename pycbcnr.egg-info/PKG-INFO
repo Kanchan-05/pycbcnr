@@ -1,10 +1,10 @@
 Metadata-Version: 2.4
-Name: pynr
+Name: pycbcnr
 Version: 0.2
 Summary: A waveform plugin for PyCBC and loading NR waveforms from the catalogues
-Home-page: https://github.com/Kanchan-05/pynr
+Home-page: https://github.com/Kanchan-05/nrpycbc
 Author: Kanchan Soni
-Author-email: kanchsoni03@gmail.com
+Author-email: ksoni01@syr.edu
 Keywords: gravitational waves,pycbc,sxs,rit,maya,nr data
 Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9

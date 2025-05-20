@@ -1,0 +1,11 @@
+LICENSE
+README.md
+setup.py
+pycbcnr/__init__.py
+pycbcnr/nrsxs.py
+pycbcnr.egg-info/PKG-INFO
+pycbcnr.egg-info/SOURCES.txt
+pycbcnr.egg-info/dependency_links.txt
+pycbcnr.egg-info/entry_points.txt
+pycbcnr.egg-info/requires.txt
+pycbcnr.egg-info/top_level.txt
