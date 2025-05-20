@@ -42,7 +42,7 @@ setup(
         "numpy",
         "scipy",
         "h5py",
-        "glob2",
+        "glob",
         "jsons",
         "lalsuite",
         "romspline",
