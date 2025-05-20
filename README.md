@@ -23,7 +23,6 @@ pip install .
  - PyCBC
  - sxs
 
-**Note:** The sxs package is pinned to <=2022.5.6 in setup.py for compatibility.
 
 ## Usage
 
