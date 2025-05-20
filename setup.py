@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='pycbcnr',
     version=VERSION,
-    description='A waveform plugin for PyCBC and loading NR waveforms from the catalogues',
+    description = 'A PyCBC plugin for loading numerical relativity waveforms from public catalogs',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='Kanchan Soni',
