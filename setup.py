@@ -1,6 +1,6 @@
 from setuptools import Extension, setup, Command, find_packages
 
-VERSION = '0.2'
+VERSION = '0.3'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -38,14 +38,11 @@ setup(
 
     install_requires=[
         "pycbc",
-        "sxs<=2022.5.6",
+        "sxs>=2022.5.6",
         "numpy",
         "scipy",
-        "h5py",
-        "glob",
-        "jsons",
-        "lalsuite",
-        "romspline",
+        "h5py",  
+        "lalsuite", 
         "requests_cache"
     ]
 )

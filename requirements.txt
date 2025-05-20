@@ -1,9 +1,6 @@
-numpy
-glob
-jsons
+numpy 
 lalsuite
 h5py
 scipy 
-sxs
-romspline
+sxs 
 requests_cache
