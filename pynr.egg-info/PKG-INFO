@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: pynr
+Version: 0.2
+Summary: A waveform plugin for PyCBC and loading NR waveforms from the catalogues
+Home-page: https://github.com/Kanchan-05/pynr
+Author: Kanchan Soni
+Author-email: kanchsoni03@gmail.com
+Keywords: gravitational waves,pycbc,sxs,rit,maya,nr data
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pycbc
+Requires-Dist: sxs<=2022.5.6
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: h5py
+Requires-Dist: glob2
+Requires-Dist: jsons
+Requires-Dist: lalsuite
+Requires-Dist: romspline
+Requires-Dist: requests_cache
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# nrpycbc

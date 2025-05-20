@@ -1,0 +1,10 @@
+pycbc
+sxs<=2022.5.6
+numpy
+scipy
+h5py
+glob2
+jsons
+lalsuite
+romspline
+requests_cache

@@ -1,0 +1,2 @@
+[pycbc.waveform.td]
+nrsxs = pycbcnr.nrsxs:gen_sxs_waveform
