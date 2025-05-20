@@ -13,7 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     author='Kanchan Soni',
     author_email='ksoni01@syr.edu',
-    url='https://github.com/Kanchan-05/nrpycbc',
+    url='https://github.com/Kanchan-05/pycbcnr',
     keywords=['gravitational waves', 'pycbc', 'sxs', 'nr data'],
     packages=find_packages(),
     python_requires='>=3.8',
