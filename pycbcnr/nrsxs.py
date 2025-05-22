@@ -12,18 +12,18 @@ def gen_sxs_waveform(sxs_id, extrapolation_order=2, download=False, **params):
     Parameters
     ----------
     sxs_id : str
-        The SXS ID of the waveform to load.
+        The SXS simulation ID.
     extrapolation_order : int
         The order of the extrapolation to use.
     download : bool
         Whether to download the waveform data if it is not already present.
     params : dict
-        Dictionary of parameters including mass1, mass2, distance, delta_t, inclination, and coa_phase.
-
+        Parameters: mtotal (solar masses), distance (Mpc), delta_t (s),
+        inclination (rad), coa_phase (rad).
     Returns
     -------
     hp, hc : pycbc.types.TimeSeries
-        Plus and cross polarizations of the strain waveform.
+        Plus and cross polarizations of the strain.
     """
 
     try:
@@ -41,21 +41,22 @@ def gen_sxs_waveform(sxs_id, extrapolation_order=2, download=False, **params):
 
     # Align to reference time
     ref_index = waveform.index_closest_to(ref_time)
-    waveform = waveform[ref_index:]
-    time = waveform.t - waveform.max_norm_time()
+    waveform_sliced = waveform[ref_index:]
+    time = waveform_sliced.t - waveform_sliced.max_norm_time()
 
     # Compute complex strain from spin-weighted spherical harmonics
-    h_total = 0 
-    for (l, m) in waveform.LM: 
-        h_lm = waveform[:, waveform.index(l, m)]
+    h_total = None 
+    for (l, m) in waveform_sliced.LM: 
+        h_lm = waveform_sliced[:, waveform_sliced.index(l, m)]
         Y_lm = lal.SpinWeightedSphericalHarmonic(params['inclination'], params['coa_phase'], -2, l, m)
-        h_total += h_lm * Y_lm
+        if h_total is None:
+            h_total = Y_lm * h_lm
+        else:
+            h_total += Y_lm * h_lm 
 
     # Rescale to physical units
-    mtotal = params['mass1'] + params['mass2']
-    distance = params['distance']
-    time *= mtotal * lal.MTSUN_SI
-    h_total *= mtotal * lal.MRSUN_SI / (distance * 1e6 * lal.PC_SI)
+    time *= params['mtotal'] * lal.MTSUN_SI
+    h_total *= params['mtotal'] * lal.MRSUN_SI / (params['distance'] * 1e6 * lal.PC_SI)
 
     # Interpolate onto uniform time grid 
     t_uniform = numpy.arange(time[0], time[-1], params['delta_t'])
