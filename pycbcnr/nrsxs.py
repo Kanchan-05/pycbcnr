@@ -5,7 +5,7 @@ import scipy.interpolate
 import pycbc.types
 import pycbc.waveform.utils 
 
-def gen_sxs_waveform(sxs_id, extrapolation_order=2, download=False, **params): 
+def gen_sxs_waveform(sxs_id, extrapolation_order="N2", download=False, **params): 
     """
     Generate a SXS waveform from the SXS catalog, compatible with both old and new SXS API versions.
 
