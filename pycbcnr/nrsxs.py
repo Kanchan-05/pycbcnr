@@ -5,7 +5,7 @@ import scipy.interpolate
 import pycbc.types
 import pycbc.waveform.utils 
 
-def gen_sxs_waveform(sxs_id, extrapolation_order="N2", download=False, **params): 
+def gen_sxs_waveform(sxs_id, extrapolation="N2", download=False, **params): 
     """
     Generate a SXS waveform from the SXS catalog, compatible with both old and new SXS API versions.
 
@@ -28,13 +28,34 @@ def gen_sxs_waveform(sxs_id, extrapolation_order="N2", download=False, **params)
 
     try:
         # Attempt to load for SXS version >2022
-        sim = sxs.load(sxs_id,extrapolation_order=extrapolation_order, download=download)
-        waveform = sim.H
-        ref_time = sim.metadata.reference_time
+        sim = sxs.load(sxs_id,extrapolation=extrapolation, download=download)
+    
+        # Transform the waveform w.t.r to the input f_ref
+        import os
+        from sxstools.quantities import get_dynamics_from_h5, get_t_ref_from_dynamics_and_freq, get_NR_ref_quantities_at_t_ref
+        from sxstools.coordinate_transform import CoordinateTransform
         
+        # Get the path to the SXS cache directory and path to the Horizons file
+        sxs_cache_path = os.path.expanduser("~/.sxs/cache")
+        horizons_file_path = os.path.join(sxs_cache_path, sim.location + ":Horizons.h5")
+
+        # Compute the dynamics using the Horizons file
+        dynamics = get_dynamics_from_h5(horizons_file_path)
+        # Get the reference time for the waveform
+        tref = get_t_ref_from_dynamics_and_freq(dynamics, f_ref=params['f_ref'], Mtotal=params['mtotal'], t_junk=100)
+
+        # Get the reference parameters in the NR reference frame
+        NR_ref_params = get_NR_ref_quantities_at_t_ref(dynamics=dynamics, t_ref=tref)
+        t_operator = CoordinateTransform(NR_ref_parames=NR_ref_params,
+                                    dynamics=dynamics,
+                                    waveform_modes=sim.H,
+                                    )
+        waveform = t_operator.waveform_modes
+        ref_time = t_operator.t_ref
+    
     except Exception:
         # Fall back to older format
-        waveform = sxs.load(f"{sxs_id}/Lev/rhOverM", extrapolation_order=extrapolation_order, download=download)
+        waveform = sxs.load(f"{sxs_id}/Lev/rhOverM", extrapolation_order=extrapolation.split('=')[-1].strip('"')[-1], download=download)
         metadata = sxs.load(f"{sxs_id}/Lev/metadata.json", download=download)
         ref_time = metadata['reference_time']
     

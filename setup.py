@@ -1,6 +1,6 @@
 from setuptools import Extension, setup, Command, find_packages
 
-VERSION = '0.3'
+VERSION = '0.4'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -16,7 +16,7 @@ setup(
     url='https://github.com/Kanchan-05/pycbcnr',
     keywords=['gravitational waves', 'pycbc', 'sxs', 'nr data'],
     packages=find_packages(),
-    python_requires='>=3.8',
+    python_requires='>=3.10',
 
     entry_points={
         "pycbc.waveform.td": [
@@ -25,8 +25,6 @@ setup(
     },
 
     classifiers=[
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Intended Audience :: Science/Research',
         'Natural Language :: English',
@@ -44,5 +42,16 @@ setup(
         "h5py",  
         "lalsuite", 
         "requests_cache"
+        "waveformtools", # required for sxstools
+        "termcolor",
+        "datetime",
+        "sympy",
+        "numpydoc",
+        "config @ git+https://gitlab.com/vaishakp/config@master",
+        "spectral @ git+https://github.com/vaishakp/spectral@main",
+        "sphinx-rtd-theme",
+        "recommonmark",
+        "scri"
+
     ]
 )
