@@ -1,13 +1,11 @@
 Metadata-Version: 2.4
 Name: pycbcnr
-Version: 0.2
-Summary: A waveform plugin for PyCBC and loading NR waveforms from the catalogues
-Home-page: https://github.com/Kanchan-05/nrpycbc
+Version: 0.4
+Summary: A PyCBC plugin for loading numerical relativity waveforms from public catalogs
+Home-page: https://github.com/Kanchan-05/pycbcnr
 Author: Kanchan Soni
 Author-email: ksoni01@syr.edu
-Keywords: gravitational waves,pycbc,sxs,rit,maya,nr data
-Classifier: Programming Language :: Python :: 3.8
-Classifier: Programming Language :: Python :: 3.9
+Keywords: gravitational waves,pycbc,sxs,nr data
 Classifier: Programming Language :: Python :: 3.10
 Classifier: Intended Audience :: Science/Research
 Classifier: Natural Language :: English
@@ -15,18 +13,15 @@ Classifier: Topic :: Scientific/Engineering
 Classifier: Topic :: Scientific/Engineering :: Astronomy
 Classifier: Topic :: Scientific/Engineering :: Physics
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
-Requires-Python: >=3.8
+Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: pycbc
-Requires-Dist: sxs<=2022.5.6
+Requires-Dist: sxs>=2022.5.6
 Requires-Dist: numpy
 Requires-Dist: scipy
 Requires-Dist: h5py
-Requires-Dist: glob2
-Requires-Dist: jsons
 Requires-Dist: lalsuite
-Requires-Dist: romspline
 Requires-Dist: requests_cache
 Dynamic: author
 Dynamic: author-email
@@ -65,7 +60,6 @@ pip install .
  - PyCBC
  - sxs
 
-**Note:** The sxs package is pinned to <=2022.5.6 in setup.py for compatibility.
 
 ## Usage
 
