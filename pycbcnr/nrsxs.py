@@ -1,9 +1,17 @@
+import os
 import numpy
 import lal 
 import sxs
 import scipy.interpolate
 import pycbc.types
 import pycbc.waveform.utils 
+
+def get_sxs_cache_path():
+    """Determine the SXS cache path, handling older and newer conventions."""
+    for path in [os.path.expanduser("~/.sxs/cache"), os.path.expanduser("~/.cache/sxs")]:
+        if os.path.exists(path):
+            return path
+    raise FileNotFoundError("Could not find SXS cache directory in standard locations.")
 
 def gen_sxs_waveform(sxs_id, extrapolation="N2", download=False, **params): 
     """
@@ -18,7 +26,7 @@ def gen_sxs_waveform(sxs_id, extrapolation="N2", download=False, **params):
     download : bool
         Whether to download the waveform data if it is not already present.
     params : dict
-        Parameters: mtotal (solar masses), distance (Mpc), delta_t (s),
+        Parameters: mtotal (solar masses), distance (Mpc), delta_t (s), f_ref (Hz),
         inclination (rad), coa_phase (rad).
     Returns
     -------
@@ -29,25 +37,24 @@ def gen_sxs_waveform(sxs_id, extrapolation="N2", download=False, **params):
     try:
         # Attempt to load for SXS version >2022
         sim = sxs.load(sxs_id,extrapolation=extrapolation, download=download)
-    
-        # Transform the waveform w.t.r to the input f_ref
-        import os
+
         from sxstools.quantities import get_dynamics_from_h5, get_t_ref_from_dynamics_and_freq, get_NR_ref_quantities_at_t_ref
         from sxstools.coordinate_transform import CoordinateTransform
-        
-        # Get the path to the SXS cache directory and path to the Horizons file
-        horizons = sim.horizons
 
-        sxs_cache_path = os.path.expanduser("~/.sxs/cache")
-        horizons_file_path = os.path.join(sxs_cache_path, sim.location + ":Horizons.h5")
-    
-        # Compute the dynamics using the Horizons file
+        # Load dynamics
+        cache_path = get_sxs_cache_path()
+        horizons = sim.horizons
+        horizons_file_path = os.path.join(cache_path, sim.location + ":Horizons.h5")
         dynamics = get_dynamics_from_h5(horizons_file_path)
+        
         # Get the reference time for the waveform
-        tref = get_t_ref_from_dynamics_and_freq(dynamics, f_ref=params['f_ref'], Mtotal=params['mtotal'], t_junk=100)
+        tref = get_t_ref_from_dynamics_and_freq(
+            dynamics, f_ref=params["f_ref"], Mtotal=params["mtotal"], t_junk=100
+        )
 
         # Get the reference parameters in the NR reference frame
         NR_ref_params = get_NR_ref_quantities_at_t_ref(dynamics=dynamics, t_ref=tref)
+
         t_operator = CoordinateTransform(NR_ref_parames=NR_ref_params,
                                     dynamics=dynamics,
                                     waveform_modes=sim.H,
@@ -79,8 +86,8 @@ def gen_sxs_waveform(sxs_id, extrapolation="N2", download=False, **params):
         else:
             h_total += Y_lm * h_lm 
 
-     # NOTE: The polarization angle has to be included so that the waveform transforms correctly
-     # Since we have not corrected for the polarization angle, we may estimate it incorrectly in the analysis
+    # NOTE: The polarization angle has to be included so that the waveform transforms correctly
+    # Since we have not corrected for the polarization angle, we may estimate it incorrectly in the analysis
 
     # Rescale to physical units
     time *= params['mtotal'] * lal.MTSUN_SI
