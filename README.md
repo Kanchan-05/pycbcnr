@@ -5,23 +5,25 @@
 ## Features
 
 - Loads `rhOverM` NR waveforms from the SXS catalog.
+- Adjust the starting time w.r.t input `f_ref`.
 - Computes the strain \( h(t) \) from spin-weighted spherical harmonics. 
 - Rescales waveforms to physical units using input masses and luminosity distance.
-- Converts output to `pycbc.types.TimeSeries` objects compatible with the PyCBC pipeline. 
+- Converts output to `pycbc.types.TimeSeries` with appropriate tapering.
 
 ## Installation
 
 ```bash
 git clone https://github.com/Kanchan-05/nrpycbc.git
-cd nrpycbc
+cd pycbcnr
 pip install .
 ```
 
 ## Dependencies
 
- - Python ≥ 3.8
+ - Python ≥ 3.10
  - PyCBC
  - sxs
+ - [sxstools](https://github.com/Kanchan-05/sxstools)
 
 
 ## Usage
