@@ -41,17 +41,17 @@ setup(
         "scipy",
         "h5py",  
         "lalsuite", 
-        "requests_cache"
-        # "waveformtools", # required for sxstools
-        # "termcolor",
-        # "datetime",
-        # "sympy",
-        # "numpydoc",
-        # "config @ git+https://gitlab.com/vaishakp/config@master",
-        # "spectral @ git+https://github.com/vaishakp/spectral@main",
-        # "sphinx-rtd-theme",
-        # "recommonmark",
-        # "scri"
+        # "requests_cache"
+        "waveformtools", # required for sxstools
+        "termcolor",
+        "datetime",
+        "sympy",
+        "numpydoc",
+        "config",
+        "spectral",
+        "sphinx-rtd-theme",
+        "recommonmark",
+        "scri"
 
     ]
 )

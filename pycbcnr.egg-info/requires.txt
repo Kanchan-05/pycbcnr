@@ -4,4 +4,13 @@ numpy
 scipy
 h5py
 lalsuite
-requests_cache
+waveformtools
+termcolor
+datetime
+sympy
+numpydoc
+config
+spectral
+sphinx-rtd-theme
+recommonmark
+scri

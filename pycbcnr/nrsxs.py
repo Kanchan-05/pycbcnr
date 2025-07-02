@@ -34,40 +34,33 @@ def gen_sxs_waveform(sxs_id, extrapolation="N2", download=False, **params):
         Plus and cross polarizations of the strain.
     """
 
-    try:
-        # Attempt to load for SXS version >2022
-        sim = sxs.load(sxs_id,extrapolation=extrapolation, download=download)
+    # Attempt to load for SXS version >2022
+    sim = sxs.load(sxs_id,extrapolation=extrapolation, download=download)
 
-        from sxstools.quantities import get_dynamics_from_h5, get_t_ref_from_dynamics_and_freq, get_NR_ref_quantities_at_t_ref
-        from sxstools.coordinate_transform import CoordinateTransform
+    from sxstools.quantities import get_dynamics_from_h5, get_t_ref_from_dynamics_and_freq, get_NR_ref_quantities_at_t_ref
+    from sxstools.coordinate_transform import CoordinateTransform
 
-        # Load dynamics
-        cache_path = get_sxs_cache_path()
-        horizons = sim.horizons
-        horizons_file_path = os.path.join(cache_path, sim.location + ":Horizons.h5")
-        dynamics = get_dynamics_from_h5(horizons_file_path)
-        
-        # Get the reference time for the waveform
-        tref = get_t_ref_from_dynamics_and_freq(
-            dynamics, f_ref=params["f_ref"], Mtotal=params["mtotal"], t_junk=100
-        )
-
-        # Get the reference parameters in the NR reference frame
-        NR_ref_params = get_NR_ref_quantities_at_t_ref(dynamics=dynamics, t_ref=tref)
-
-        t_operator = CoordinateTransform(NR_ref_parames=NR_ref_params,
-                                    dynamics=dynamics,
-                                    waveform_modes=sim.H,
-                                    )
-        t_operator.transform()
-        waveform = t_operator.waveform_modes_rot_xyz
-        ref_time = t_operator.t_ref
+    # Load dynamics
+    cache_path = get_sxs_cache_path()
+    horizons = sim.horizons
+    horizons_file_path = os.path.join(cache_path, sim.location + ":Horizons.h5")
+    dynamics = get_dynamics_from_h5(horizons_file_path)
     
-    except Exception:
-        # Fall back to older format
-        waveform = sxs.load(f"{sxs_id}/Lev/rhOverM", extrapolation_order=extrapolation.split('=')[-1].strip('"')[-1], download=download)
-        metadata = sxs.load(f"{sxs_id}/Lev/metadata.json", download=download)
-        ref_time = metadata['reference_time']
+    # Get the reference time for the waveform
+    tref = get_t_ref_from_dynamics_and_freq(
+        dynamics, f_ref=params["f_ref"], Mtotal=params["mtotal"], t_junk=100
+    )
+
+    # Get the reference parameters in the NR reference frame
+    NR_ref_params = get_NR_ref_quantities_at_t_ref(dynamics=dynamics, t_ref=tref)
+
+    t_operator = CoordinateTransform(NR_ref_parames=NR_ref_params,
+                                dynamics=dynamics,
+                                waveform_modes=sim.H,
+                                )
+    t_operator.transform()
+    waveform = t_operator.waveform_modes_rot_xyz
+    ref_time = t_operator.t_ref
     
 
     # Align to reference time
