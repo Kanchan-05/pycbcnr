@@ -10,11 +10,19 @@
 - Rescales waveforms to physical units using input masses and luminosity distance.
 - Converts output to `pycbc.types.TimeSeries` with appropriate tapering.
 
-## Installation
+## Installation (for precessing and aligned-spin SXS simulation)
 
 ```bash
 git clone https://github.com/Kanchan-05/nrpycbc.git
 cd pycbcnr
+pip install .
+```
+
+### Installation (for non-spinning SXS simulation)
+```
+git clone https://github.com/Kanchan-05/nrpycbc.git
+cd pycbcnr
+git checkout f64f9fc
 pip install .
 ```
 
