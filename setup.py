@@ -41,14 +41,14 @@ setup(
         "scipy",
         "h5py",  
         "lalsuite", 
-        # "requests_cache"
+        "sxstools",
         "waveformtools", # required for sxstools
         "termcolor",
         "datetime",
         "sympy",
         "numpydoc",
         "config",
-        "spectral",
+        "spectools",
         "sphinx-rtd-theme",
         "recommonmark",
         "scri"
