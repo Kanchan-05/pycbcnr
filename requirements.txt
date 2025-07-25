@@ -1,6 +1,6 @@
 numpy 
+pycbc
 lalsuite
 h5py
 scipy 
 sxs 
-requests_cache
